@@ -24,8 +24,8 @@ class FullTimeEmployee extends Employee {
         super(name, salary);
     }
 
-    public double salaryAfterHike() {
-        return salary + (0.50 * salary); // 50% hike
+    public double calculateSalary() {
+        return salary + (0.50 * salary);
     }
 }
 
@@ -34,8 +34,8 @@ class InternEmployee extends Employee {
         super(name, salary);
     }
 
-    public double salaryAfterHike() {
-        return salary + (0.25 * salary); // 25% hike
+    public double calculateSalary() {
+        return salary + (0.25 * salary);
     }
 }
 
@@ -43,28 +43,28 @@ public class EmployeeInheritanceApp {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("1) Full Time Employee (50% hike)");
-        System.out.println("2) Intern Employee (25% hike)");
-        System.out.print("Choose type: ");
-        int choice = sc.nextInt();
-        sc.nextLine(); // consume newline
-
         System.out.print("Enter Employee Name: ");
         String name = sc.nextLine();
 
         System.out.print("Enter Salary: ");
         double salary = sc.nextDouble();
+        sc.nextLine();
 
-        if (choice == 1) {
-            FullTimeEmployee f = new FullTimeEmployee(name, salary);
-            double after = f.salaryAfterHike();
-            f.displaySalary(salary, after);
-        } else if (choice == 2) {
-            InternEmployee i = new InternEmployee(name, salary);
-            double after = i.salaryAfterHike();
-            i.displaySalary(salary, after);
+        System.out.print("Enter Employee Type (FullTime / Intern): ");
+        String type = sc.nextLine();
+
+        if (type.equalsIgnoreCase("FullTime")) {
+            FullTimeEmployee emp = new FullTimeEmployee(name, salary);
+            double after = emp.calculateSalary();
+            emp.displaySalary(salary, after);
+
+        } else if (type.equalsIgnoreCase("Intern")) {
+            InternEmployee emp = new InternEmployee(name, salary);
+            double after = emp.calculateSalary();
+            emp.displaySalary(salary, after);
+
         } else {
-            System.out.println("Invalid choice.");
+            System.out.println("Invalid employee type.");
         }
 
         sc.close();
